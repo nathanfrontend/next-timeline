@@ -22,21 +22,19 @@ const Timeline = () => {
   const [items, setItems] = useState<TimelineType[]>(initialItems);
   const [mobileIndex, setIndex] = useState<number>(0);
   const [rearrange, setRearrange] = useState<boolean>(false);
-  const [isMobile, setIsmobile] = useState<boolean>(true);
+  const [isMobile, setIsmobile] = useState<boolean>(false);
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 767) {
         setIsmobile(false);
       } else if (window.innerWidth < 767) {
         setIsmobile(true);
+        console.log("foom");
       }
     };
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [isMobile]);
+    handleResize();
+  }, []);
+  console.log(isMobile);
   const handleAddEvent = () => {
     const copiedInitial: TimelineType[] = JSON.parse(
       JSON.stringify(initialItems)

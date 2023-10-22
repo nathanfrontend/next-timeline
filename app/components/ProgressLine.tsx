@@ -10,6 +10,7 @@ const ProgressLine: React.FC<Props> = ({
   transition,
   handleToggleDetails,
 }) => {
+  console.log(item);
   return (
     <div
       className="flex items-center  py-2 sm:py-4"
