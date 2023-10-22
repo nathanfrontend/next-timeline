@@ -11,7 +11,7 @@ const RearrageEvents: React.FC<Props> = ({ items }) => {
           {items.map(({ title, id }, index) => (
             <li
               key={id}
-              className={`flex w-full justify-center items-center ${
+              className={`flex w-auto justify-center items-center ${
                 index === items.length - 1 ? "" : "border-r"
               } p-2 s text-sm hover:cursor-pointer hover:bg-gray-100`}
             >
