@@ -29,7 +29,6 @@ const Timeline = () => {
         setIsmobile(false);
       } else if (window.innerWidth < 767) {
         setIsmobile(true);
-        console.log("foom");
       }
     };
     handleResize();
