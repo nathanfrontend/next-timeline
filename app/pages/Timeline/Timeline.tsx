@@ -83,7 +83,7 @@ const Timeline = () => {
             setIndex={setIndex}
           />
         ))}
-        {/* {isMobile && (
+        {isMobile && (
           <TimeLineEventMobile
             items={items}
             transition={transition}
@@ -91,9 +91,9 @@ const Timeline = () => {
             setItems={setItems}
             setIndex={setIndex}
           />
-        )} */}
+        )}
       </ol>
-      {/* <Sliders items={items} setIndex={setIndex} index={mobileIndex} /> */}
+      <Sliders items={items} setIndex={setIndex} index={mobileIndex} />
     </div>
   );
 };
