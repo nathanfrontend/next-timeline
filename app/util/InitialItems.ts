@@ -6,9 +6,9 @@ export const initialItems = [
     description:
       "Get started with dozens of web components and interactive elements.",
 
-    icon: 1,
     image: "",
     complete: false,
     customise: false,
+    detailsVisible: false,
   },
 ];
