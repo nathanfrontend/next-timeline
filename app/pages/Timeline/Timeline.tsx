@@ -1,18 +1,15 @@
 "use client";
-import Image from "next/image";
-import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
-import { GrAdd, GrClose } from "react-icons/gr";
-import { TimelineType } from "@/types";
-import { initialItems } from "../util/InitialItems";
-import GlobalFloatingBar from "./GlobalFloatingBar";
-import CustomFloatingBar from "./CustomFloatingBar";
-import ProgressLine from "./ProgressLine";
 
-import EventCard from "./EventCard";
-import TimeLineEvent from "./TimeLineEvent";
-import TimeLineEventMobile from "./TimeLineEventMobile";
-import Sliders from "./Sliders";
-import RearrageEvents from "./RearrageEvents";
+import { useEffect, useState } from "react";
+import { GrAdd } from "react-icons/gr";
+import { TimelineType } from "@/types";
+import { initialItems } from "../../util/InitialItems";
+import GlobalFloatingBar from "../../components/GlobalFloatingBar";
+
+import TimeLineEvent from "../../components/TimeLineEvent";
+import TimeLineEventMobile from "../../components/TimeLineEventMobile";
+import Sliders from "../../components/Sliders";
+import RearrageEvents from "../../components/RearrageEvents";
 const transition =
   "transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 hover:bg-green-100 duration-300";
 const globalSettings = {
@@ -23,17 +20,29 @@ const globalSettings = {
 
 const Timeline = () => {
   const [items, setItems] = useState<TimelineType[]>(initialItems);
-  const [mobileIndex, setMobileIndex] = useState<number>(0);
+  const [mobileIndex, setIndex] = useState<number>(0);
   const [rearrange, setRearrange] = useState<boolean>(false);
+  const [isMobile, setIsmobile] = useState<boolean>(true);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 767) {
+        setIsmobile(false);
+      } else if (window.innerWidth < 767) {
+        setIsmobile(true);
+      }
+    };
+    window.addEventListener("resize", handleResize);
 
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isMobile]);
   const handleAddEvent = () => {
     const copiedInitial: TimelineType[] = JSON.parse(
       JSON.stringify(initialItems)
     );
-    const idExists = items.some((obj) => obj.id === items.length);
-    copiedInitial[0].id = idExists
-      ? Math.floor(Math.random() * 900)
-      : Math.floor(Math.random() * 900);
+
+    copiedInitial[0].id = Math.floor(Math.random() * 900);
 
     setItems((prevItems) => [...prevItems, copiedInitial[0]]);
   };
@@ -71,20 +80,20 @@ const Timeline = () => {
             transition={transition}
             index={index}
             setItems={setItems}
+            setIndex={setIndex}
           />
         ))}
-        <TimeLineEventMobile
-          items={items}
-          transition={transition}
-          index={mobileIndex}
-          setItems={setItems}
-        />
+        {isMobile && (
+          <TimeLineEventMobile
+            items={items}
+            transition={transition}
+            index={mobileIndex}
+            setItems={setItems}
+            setIndex={setIndex}
+          />
+        )}
       </ol>
-      <Sliders
-        items={items}
-        setMobileIndex={setMobileIndex}
-        index={mobileIndex}
-      />
+      <Sliders items={items} setIndex={setIndex} index={mobileIndex} />
     </div>
   );
 };

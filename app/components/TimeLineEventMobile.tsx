@@ -8,16 +8,19 @@ interface Props {
   items: TimelineType[];
   index: number;
   transition: string;
+  setIndex: (
+    prevTextAreas: number | ((prevTextAreas: number) => number)
+  ) => void;
   setItems: (
     prevTextAreas:
       | TimelineType[]
-      | ((prevTextAreas: TimelineType) => TimelineType[])
+      | ((prevTextAreas: TimelineType[]) => TimelineType[])
   ) => void;
 }
 const TimeLineEventMobile: React.FC<Props> = ({
   setItems,
   items,
-
+  setIndex,
   transition,
   index,
 }) => {
@@ -100,10 +103,14 @@ const TimeLineEventMobile: React.FC<Props> = ({
       )
     );
   };
+  const handleSetIndex = () => {
+    setIndex(index);
+  };
   return (
     <li
-      key={items[index].id}
+      key={items[index]?.id}
       className=" sm:hidden flex-item flex-shrink-0 relative mb-6  w-auto "
+      onClick={handleSetIndex}
     >
       <div className="px-5 mb-5  relative ">
         <input
@@ -111,7 +118,7 @@ const TimeLineEventMobile: React.FC<Props> = ({
           name="date"
           min={items[index - 1]?.date}
           className="mt-3 w-full sm:pr-8 hover:cursor-text hover:bg-red-300 resize-none rounded-lg border p-1 border-blue-100"
-          value={items[index].date}
+          value={items[index]?.date}
           onChange={(event) => handleTextChange(event, items[index].id)}
         />
       </div>
@@ -125,6 +132,7 @@ const TimeLineEventMobile: React.FC<Props> = ({
       {item.detailsVisible ? (
       <> */}
       <CustomFloatingBar
+        items={items}
         item={items[index]}
         setItems={setItems}
         handleCustomiseEvent={handleCustomiseEvent}
@@ -132,6 +140,7 @@ const TimeLineEventMobile: React.FC<Props> = ({
         handleImageUpload={handleImageUpload}
       />
       <EventCard
+        items={items}
         item={items[index]}
         handleCustomiseEvent={handleCustomiseEvent}
         handleRemoveEvent={handleRemoveEvent}

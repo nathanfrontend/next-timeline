@@ -1,6 +1,6 @@
 "use client";
-import Image from "next/image";
-import { ChangeEvent, MouseEvent, useRef, useState } from "react";
+
+import { MouseEvent, useRef } from "react";
 import {
   GrClose,
   GrFormCheckmark,
@@ -8,7 +8,7 @@ import {
   GrBold,
   GrMultimedia,
 } from "react-icons/gr";
-import { RiDeleteBin5Line, RiDragMove2Fill, RiSave3Fill } from "react-icons/ri";
+import { RiDeleteBin5Line, RiSave3Fill } from "react-icons/ri";
 import { HiDocumentDuplicate } from "react-icons/hi";
 import { FcCancel } from "react-icons/fc";
 import { TimelineType } from "../../types";
@@ -19,6 +19,7 @@ const CustomFloatingBar = ({
   handleRemoveEvent,
   handleCustomiseEvent,
   handleImageUpload,
+  items,
 }: any) => {
   function handleComplete(item: TimelineType) {
     setItems((prevTextAreas: TimelineType[]) =>
@@ -60,7 +61,11 @@ const CustomFloatingBar = ({
           <li className="block border-r  p-2 s text-sm hover:cursor-pointer hover:bg-gray-100">
             <GrBold />
           </li>
-          <li className="block border-r  p-2 s text-sm hover:cursor-pointer hover:bg-gray-100">
+          <li
+            className={`block ${
+              items.length === 1 ? "" : "border-r "
+            }  p-2 s text-sm hover:cursor-pointer hover:bg-gray-100`}
+          >
             <GrMultimedia onClick={handleIconClick} />
 
             <input
@@ -71,14 +76,17 @@ const CustomFloatingBar = ({
               onChange={(event) => handleImageUpload(event, item.id)}
             />
           </li>
-          <li className="block  p-2 text-sm hover:cursor-pointer hover:bg-gray-100">
+          <li
+            className={`   ${
+              items.length === 1 && "hidden"
+            } block  p-2 text-sm hover:cursor-pointer hover:bg-gray-100`}
+          >
             <RiDeleteBin5Line onClick={() => handleRemoveEvent(item.id)} />
           </li>
         </ul>
       </div>
       <div className="border rounded-full border-blue-100 flex justify-center items-center p-2  text-sm hover:cursor-pointer hover:bg-gray-100">
         <GrClose
-          name="close"
           onClick={(e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) =>
             handleCustomiseEvent(e, item)
           }

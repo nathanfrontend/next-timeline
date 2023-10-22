@@ -7,26 +7,26 @@ import {
   MdKeyboardDoubleArrowLeft,
 } from "react-icons/md";
 interface Props {
-  setMobileIndex: (value: number | ((prevVar: number) => number)) => void;
+  setIndex: (value: number | ((prevVar: number) => number)) => void;
   index: number;
   items: TimelineType[];
 }
-const Sliders: React.FC<Props> = ({ items, setMobileIndex, index }) => {
+const Sliders: React.FC<Props> = ({ items, setIndex, index }) => {
   const handleNextEvent = () => {
     const isLastSlide = index === items.length - 1;
     const newIndex = isLastSlide ? items.length - 1 : index + 1;
-    setMobileIndex(newIndex);
+    setIndex(newIndex);
   };
   const handleEventEnd = () => {
-    setMobileIndex(items.length - 1);
+    setIndex(items.length - 1);
   };
   const handleEventStart = () => {
-    setMobileIndex(0);
+    setIndex(0);
   };
   const handlePreviousEvent = () => {
     const isFirstSlide = index === 0;
     const newIndex = isFirstSlide ? 0 : index - 1;
-    setMobileIndex(newIndex);
+    setIndex(newIndex);
   };
   return (
     <div className="flex justify-center px-4 mb-4 sm:hidden">

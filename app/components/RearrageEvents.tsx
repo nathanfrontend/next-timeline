@@ -5,7 +5,7 @@ interface Props {
 }
 const RearrageEvents: React.FC<Props> = ({ items }) => {
   return (
-    <div className="flex mb-8 ">
+    <div className="flex mb-2 ">
       <div className="mx-5 border rounded-full border-blue-100 ">
         <ul className="flex  justify-center items-center">
           {items.map(({ title, id }, index) => (

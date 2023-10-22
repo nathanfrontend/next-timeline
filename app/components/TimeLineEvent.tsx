@@ -1,19 +1,22 @@
 import { TimelineType } from "@/types";
 
 import CustomFloatingBar from "./CustomFloatingBar";
-import CustomiseEvent from "./EventCard";
+
 import ProgressLine from "./ProgressLine";
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent } from "react";
 import EventCard from "./EventCard";
 interface Props {
   item: TimelineType;
   items: TimelineType[];
   index: number;
   transition: string;
+  setIndex: (
+    prevTextAreas: number | ((prevTextAreas: number) => number)
+  ) => void;
   setItems: (
     prevTextAreas:
       | TimelineType[]
-      | ((prevTextAreas: TimelineType) => TimelineType[])
+      | ((prevTextAreas: TimelineType[]) => TimelineType[])
   ) => void;
 }
 const TimeLineEvent: React.FC<Props> = ({
@@ -22,6 +25,7 @@ const TimeLineEvent: React.FC<Props> = ({
   item,
   transition,
   index,
+  setIndex,
 }) => {
   const handleTextChange = (
     event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
@@ -102,10 +106,14 @@ const TimeLineEvent: React.FC<Props> = ({
       )
     );
   };
+  const handleSetIndex = () => {
+    setIndex(index);
+  };
   return (
     <li
       key={item.id}
       className="hidden sm:block sm:flex-item sm:flex-shrink-0 sm:relative sm:mb-6  sm:w-[300px]"
+      onClick={handleSetIndex}
     >
       <div className="px-5 mb-5  relative ">
         <input
@@ -117,6 +125,7 @@ const TimeLineEvent: React.FC<Props> = ({
           onChange={(event) => handleTextChange(event, item.id)}
         />
       </div>
+
       <ProgressLine
         transition={transition}
         item={item}
@@ -128,6 +137,7 @@ const TimeLineEvent: React.FC<Props> = ({
       {item.detailsVisible ? (
       <> */}
       <CustomFloatingBar
+        items={items}
         item={item}
         setItems={setItems}
         handleCustomiseEvent={handleCustomiseEvent}
@@ -135,6 +145,7 @@ const TimeLineEvent: React.FC<Props> = ({
         handleImageUpload={handleImageUpload}
       />
       <EventCard
+        items={items}
         item={item}
         handleCustomiseEvent={handleCustomiseEvent}
         handleRemoveEvent={handleRemoveEvent}

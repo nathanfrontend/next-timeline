@@ -8,8 +8,10 @@ interface Props {
   handleRemoveEvent: Function;
   handleImageUpload: Function;
   handleTextChange: Function;
+  items: TimelineType[];
 }
 const EventCard: React.FC<Props> = ({
+  items,
   item,
   handleCustomiseEvent,
   handleRemoveEvent,
@@ -40,11 +42,13 @@ const EventCard: React.FC<Props> = ({
           <>
             <div className="w-full ">
               <GrClose
-                className="  m-2 absolute flex justify-end items-end right-0 text-gray-500 dark:text-gray-400"
+                className={`${
+                  items.length === 1 && "hidden"
+                } m-2 absolute flex justify-end items-end right-0 text-gray-500 dark:text-gray-400`}
                 onClick={() => handleRemoveEvent(item.id)}
               />
               <label
-                htmlFor="dropzone-file"
+                htmlFor={`dropzone-file${item.id}`}
                 className="flex flex-col items-center justify-start w-full h-full p-1 border-gray-300  cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
               >
                 <div className="flex flex-col items-center justify-center pt-5 pb-6 text-center ">
@@ -75,7 +79,7 @@ const EventCard: React.FC<Props> = ({
                   </p>
                 </div>
                 <input
-                  id="dropzone-file"
+                  id={`dropzone-file${item.id}`}
                   type="file"
                   accept=".jpg, .jpeg, .png"
                   className="hidden"
