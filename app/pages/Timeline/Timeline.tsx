@@ -10,6 +10,7 @@ import TimeLineEvent from "../../components/TimeLineEvent";
 import TimeLineEventMobile from "../../components/TimeLineEventMobile";
 import Sliders from "../../components/Sliders";
 import RearrageEvents from "../../components/RearrageEvents";
+import { NextPage } from "next";
 const transition =
   "transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 hover:bg-green-100 duration-300";
 const globalSettings = {
@@ -18,7 +19,7 @@ const globalSettings = {
   title: "",
 };
 
-const Timeline = () => {
+const Timeline: NextPage = () => {
   const [items, setItems] = useState<TimelineType[]>(initialItems);
   const [mobileIndex, setIndex] = useState<number>(0);
   const [rearrange, setRearrange] = useState<boolean>(false);
