@@ -40,8 +40,6 @@ const TimeLineEvent: React.FC<Props> = ({
         area.id === id ? { ...area, [name]: newValue } : area
       )
     );
-
-    console.log(items);
   };
   const handleImageUpload = (
     event: ChangeEvent<HTMLInputElement | Event>,
