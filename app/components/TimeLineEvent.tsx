@@ -34,27 +34,14 @@ const TimeLineEvent: React.FC<Props> = ({
     const newValue = event.target.value;
 
     const { name } = event.target;
-    if (name === "description") {
-      setItems((prevTextAreas) =>
-        prevTextAreas.map((area: TimelineType) =>
-          area.id === id ? { ...area, description: newValue } : area
-        )
-      );
-    }
-    if (name === "date") {
-      setItems((prevTextAreas) =>
-        prevTextAreas.map((area: TimelineType) =>
-          area.id === id ? { ...area, date: newValue } : area
-        )
-      );
-    }
-    if (name === "title") {
-      setItems((prevTextAreas) =>
-        prevTextAreas.map((area: TimelineType) =>
-          area.id === id ? { ...area, title: newValue } : area
-        )
-      );
-    }
+
+    setItems((prevTextAreas) =>
+      prevTextAreas.map((area: TimelineType) =>
+        area.id === id ? { ...area, [name]: newValue } : area
+      )
+    );
+
+    console.log(items);
   };
   const handleImageUpload = (
     event: ChangeEvent<HTMLInputElement | Event>,
