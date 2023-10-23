@@ -32,8 +32,9 @@ const Timeline = () => {
       }
     };
     handleResize();
+    window.addEventListener("resize", handleResize);
   }, []);
-  console.log(isMobile);
+
   const handleAddEvent = () => {
     const copiedInitial: TimelineType[] = JSON.parse(
       JSON.stringify(initialItems)
@@ -68,18 +69,20 @@ const Timeline = () => {
       </div>
 
       <ol className="items-center sm:flex sm:flex-container mt-4 sm:mt-10">
-        {items.map((item, index) => (
-          // Desktop view: Original component layout
-          <TimeLineEvent
-            key={item.id}
-            items={items}
-            item={item}
-            transition={transition}
-            index={index}
-            setItems={setItems}
-            setIndex={setIndex}
-          />
-        ))}
+        {!isMobile &&
+          items.map((item, index) => (
+            // Desktop view: Original component layout
+            <TimeLineEvent
+              key={item.id}
+              items={items}
+              item={item}
+              transition={transition}
+              index={index}
+              setItems={setItems}
+              setIndex={setIndex}
+            />
+          ))}
+
         {isMobile && (
           <TimeLineEventMobile
             items={items}
